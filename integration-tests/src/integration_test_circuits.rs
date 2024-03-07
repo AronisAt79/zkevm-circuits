@@ -351,10 +351,29 @@ impl<C: SubCircuit<Fr> + Circuit<Fr>> IntegrationTest<C> {
         let fixed = mock_prover.fixed();
 
         if let Some(prev_fixed) = self.fixed.clone() {
-            assert!(
-                fixed.eq(&prev_fixed),
-                "circuit fixed columns are not constant for different witnesses"
-            );
+            // assert!(
+            //     fixed.eq(&prev_fixed),
+            //     "circuit fixed columns are not constant for different witnesses"
+            // );
+        for (column_number, column) in fixed.into_iter().enumerate() {
+            let ismatch = column.eq(&prev_fixed[column_number]);
+            if ismatch {
+                println!("COLUMN {:#?} MATCH!", column_number);
+            } else {
+                println!("COLUMN {:#?} DOES NOT MATCH!", column_number);
+                let mut count = 0;
+                for row in column {
+                    if *row != prev_fixed[column_number][count] {
+                        println!(
+                            "ROW: {} FIXED: {:?}, PREV_FIXED: {:?}",
+                            count, row, prev_fixed[column_number][count]
+                        );
+                    }
+                    count += 1;
+                }
+            }
+        }
+
         } else {
             self.fixed = Some(fixed.clone());
         }

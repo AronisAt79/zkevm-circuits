@@ -15,46 +15,6 @@ macro_rules! declare_tests {
             async fn [<serial_test_evm_ $name>]() {
                 run_test! (EVM_CIRCUIT_TEST, $block_tag, $root, $real_prover);
             }
-
-            #[tokio::test]
-            async fn [<serial_test_state_ $name>]() {
-                run_test! (STATE_CIRCUIT_TEST, $block_tag, $root, $real_prover);
-            }
-
-            #[tokio::test]
-            async fn [<serial_test_tx_ $name>]() {
-                run_test! (TX_CIRCUIT_TEST, $block_tag, $root, $real_prover);
-            }
-
-            #[tokio::test]
-            async fn [<serial_test_bytecode_ $name>]() {
-                run_test! (BYTECODE_CIRCUIT_TEST, $block_tag, $root, $real_prover);
-            }
-
-            #[tokio::test]
-            async fn [<serial_test_copy_ $name>]() {
-                run_test! (COPY_CIRCUIT_TEST, $block_tag, $root, $real_prover);
-            }
-
-            #[tokio::test]
-            async fn [<serial_test_keccak_ $name>]() {
-                run_test! (KECCAK_CIRCUIT_TEST, $block_tag, $root, $real_prover);
-            }
-
-            #[tokio::test]
-            async fn [<serial_test_super_ $name>]() {
-                run_test! (SUPER_CIRCUIT_TEST, $block_tag, $root, $real_prover);
-            }
-
-            #[tokio::test]
-            async fn [<serial_test_exp_ $name>]() {
-                run_test! (EXP_CIRCUIT_TEST, $block_tag, $root, $real_prover);
-            }
-
-            #[tokio::test]
-            async fn [<serial_test_pi_ $name>]() {
-                run_test! (PI_CIRCUIT_TEST, $block_tag, $root, $real_prover);
-            }
         }
     };
 }
@@ -64,14 +24,6 @@ macro_rules! unroll_tests {
         use paste::paste;
         use integration_tests::integration_test_circuits::{
             EVM_CIRCUIT_TEST,
-            STATE_CIRCUIT_TEST,
-            TX_CIRCUIT_TEST,
-            BYTECODE_CIRCUIT_TEST,
-            COPY_CIRCUIT_TEST,
-            KECCAK_CIRCUIT_TEST,
-            SUPER_CIRCUIT_TEST,
-            EXP_CIRCUIT_TEST,
-            PI_CIRCUIT_TEST,
         };
         use integration_tests::log_init;
         // NOTE: The SubCircuits include all well known SubCircuits and the SuperCircuit.

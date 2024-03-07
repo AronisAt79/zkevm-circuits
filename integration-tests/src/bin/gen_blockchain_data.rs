@@ -140,6 +140,18 @@ async fn main() {
 
     // ETH Transfer: Transfer funds to our account.
     //
+    info!("Transferring funds from coinbase - create early blocks...");
+    for _i in 0..255 {
+        let early_tx = TransactionRequest::new()
+            .to(wallet0.address())
+            .value(WEI_IN_ETHER) // send 1 GWEI
+            .from(accounts[0]);
+        prov.send_transaction(early_tx, None)
+            .await
+            .expect("cannot send tx")
+            .await
+            .expect("cannot confirm tx");
+    }
 
     info!("Transferring funds from coinbase...");
     let tx = TransactionRequest::new()
